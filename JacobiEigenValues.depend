@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1521643387 source:/home/gustavo/Programacao/Cpp/JabobiEigenValues/main.cpp
+	<iostream>
+	<random>
+	"SymmetricMatrix.h"
+
+1521645971 /home/gustavo/Programacao/Cpp/JabobiEigenValues/include/SymmetricMatrix.h
+	<iostream>
+
+1521645992 source:/home/gustavo/Programacao/Cpp/JabobiEigenValues/src/SymmetricMatrix.cpp
+	"SymmetricMatrix.h"
+	<math.h>
+
+1521645992 source:/home/gustavo/Programacao/Cpp/JacobiEigenValues/src/SymmetricMatrix.cpp
+	"SymmetricMatrix.h"
+	<math.h>
+
+1521645971 /home/gustavo/Programacao/Cpp/JacobiEigenValues/include/SymmetricMatrix.h
+	<iostream>
+
