@@ -14,7 +14,7 @@ class SymmetricMatrix
         virtual ~SymmetricMatrix();
         SymmetricMatrix(const SymmetricMatrix& other);
 
-        size_t Getsize() { return m_size; }
+        size_t Getsize() const { return m_size; }
 
         class Row
         {
@@ -32,8 +32,8 @@ class SymmetricMatrix
     protected:
 
     private:
-        size_t m_size;
-        double* m_mat;
+        const size_t m_size;
+        double* const m_mat;
 };
 
 #endif // SYMMETRICMATRIX_H

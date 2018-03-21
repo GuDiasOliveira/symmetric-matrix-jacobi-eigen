@@ -1,7 +1,7 @@
 #include "SymmetricMatrix.h"
 #include<math.h>
 
-SymmetricMatrix::SymmetricMatrix() : m_size(0)
+SymmetricMatrix::SymmetricMatrix() : m_size(0), m_mat(nullptr)
 {
 }
 
@@ -11,12 +11,14 @@ SymmetricMatrix::SymmetricMatrix(size_t mat_size) : m_size(mat_size), m_mat(new 
 
 SymmetricMatrix::~SymmetricMatrix()
 {
-    delete m_mat;
+    delete[] m_mat;
 }
 
-SymmetricMatrix::SymmetricMatrix(const SymmetricMatrix& other)
+SymmetricMatrix::SymmetricMatrix(const SymmetricMatrix& other) : SymmetricMatrix(other.m_size)
 {
-    // TODO
+    size_t arr_size = (m_size - 1) * m_size / 2 + m_size;
+    for (int i = 0; i < arr_size; i++)
+        m_mat[i] = other.m_mat[i];
 }
 
 SymmetricMatrix::Row SymmetricMatrix::operator[](size_t row)
