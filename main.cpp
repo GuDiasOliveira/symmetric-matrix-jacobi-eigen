@@ -1,34 +1,51 @@
 #include <iostream>
-#include <random>
+#include <fstream>
 #include "SymmetricMatrix.h"
 
 using namespace std;
 
-double fRand(double fMin, double fMax)
-{
-    double f = (double)rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
-}
 
 int main(int argc, char** argv)
 {
-    int size, r, c;
-    cin >> size;
-    SymmetricMatrix mat(size);
-    for (int i = 0; i < size * size; i++)
-        mat[i / size][i % size] = 0;
-    while(cin >> r)
+    string line;
+    int size;
+
+    // Input stream
+    string fName = argc >= 2 ? argv[1] : "-";
+    istream* input;
+    if (fName != "-")
     {
-        cin >> c;
-        cin >> mat[r][c];
+        ifstream* file = new ifstream(fName);
+        input = file;
     }
-    SymmetricMatrix mat2 = mat;
-    mat[0][0] = 77.888;
+    else
+    {
+        input = &cin;
+    }
+
+    // Inputting matrix
+    if (!(*input >> size))
+    {
+        cerr << "Empty input!" << endl;
+        return 1;
+    }
+    SymmetricMatrix mat(size);
     for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size; j++)
-            cout << "\t" << mat2[i][j];
-        cout << endl;
+        for (int j = 0; j <= i; j++)
+        {
+            if (!(*input >> mat[i][j]))
+            {
+                cerr << "Incomplete input!" << endl;
+                return 1;
+            }
+        }
     }
-    return 0;
+
+    eigen* e = mat.calculateEigens(1e-10);
+    for (int i = 0; i < size; i++)
+        cout << e[i].value << endl;
+
+    if (fName == "-")
+        ((ifstream*) input)->close();
 }

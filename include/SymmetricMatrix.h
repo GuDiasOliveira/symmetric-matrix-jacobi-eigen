@@ -2,6 +2,7 @@
 #define SYMMETRICMATRIX_H
 
 #include <iostream>
+#include "eigen.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ class SymmetricMatrix
         };
 
         Row operator[](size_t index);
+        eigen* calculateEigens(double precision);
 
     protected:
 
