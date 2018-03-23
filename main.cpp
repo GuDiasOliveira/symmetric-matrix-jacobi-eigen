@@ -44,7 +44,15 @@ int main(int argc, char** argv)
 
     eigen* e = mat.calculateEigens(1e-10);
     for (int i = 0; i < size; i++)
+    {
+        cout << "\n  eigen-value " << (i + 1) << ":\n";
         cout << e[i].value << endl;
+        cout << "  eigen-vector " << (i + 1) << ":\n";
+        for (int j = 0; j < size; j++)
+        {
+            cout << e[i].vector[j] << endl;
+        }
+    }
 
     if (fName == "-")
         ((ifstream*) input)->close();

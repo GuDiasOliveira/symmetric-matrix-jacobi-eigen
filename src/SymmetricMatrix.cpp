@@ -50,6 +50,11 @@ eigen* SymmetricMatrix::calculateEigens(double precision)
         return e;
     }
 
+    double* eVects = new double[size * size];
+    for (size_t i = 0; i < size; i++)
+        for (size_t j = 0; j < size; j++)
+            eVects[i * size + j] = i == j ? 1 : 0;
+
     SymmetricMatrix* matAp = this;
     while(true)
     {
@@ -115,14 +120,40 @@ eigen* SymmetricMatrix::calculateEigens(double precision)
             delete matAp;
 
         matAp = nextMatA;
+
+        // Computing eigenvectors
+        double* nextEVects = new double[size * size];
+        for (size_t i = 0; i < size; i++)
+        {
+            for (size_t j = 0; j < size; j++)
+            {
+                size_t k = i * size + j;
+                if (j == p)
+                    nextEVects[k] = eVects[i * size + p] * c - eVects[i * size + q] * s;
+                else if (j == q)
+                    nextEVects[k] = eVects[i * size + p] * s + eVects[i * size + q] * c;
+                else
+                    nextEVects[k] = eVects[k];
+            }
+        }
+        delete[] eVects;
+        eVects = nextEVects;
     }
 
     eigen* e = new eigen[size];
     for (size_t i = 0; i < size; i++)
+    {
         e[i].value = (*matAp)[i][i];
+        e[i].vector = new double[size];
+        for (size_t j = 0; j < size; j++)
+        {
+            e[i].vector[j] = eVects[j * size + i];
+        }
+    }
 
     if (matAp != this)
         delete matAp;
+    delete[] eVects;
 
     return e;
 }
